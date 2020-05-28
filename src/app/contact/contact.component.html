@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>{{isEditMode ? 'Update Contact' : 'Add Contact'}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="contactForm" class="example-form">
+        <mat-form-field class="example-full-width">
+            <mat-label>First Name</mat-label>
+            <input matInput [formControl]="contactForm.controls['firstName']">
+            <mat-error *ngIf="contactForm.controls['email'].hasError('required')">
+                First Name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Last Name</mat-label>
+            <input matInput [formControl]="contactForm.controls['lastName']">
+            <mat-error *ngIf="contactForm.controls['lastName'].hasError('required')">
+                Last Name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input matInput [formControl]="contactForm.controls['email']" placeholder="Ex. pat@example.com">
+            <mat-error
+                *ngIf="contactForm.controls['email'].hasError('email')">
+                Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="contactForm.controls['email'].hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Phone Number</mat-label>
+            <input matInput [formControl]="contactForm.controls['phone']" placeholder="1234567890">
+            <mat-error
+                *ngIf="contactForm.controls['phone'].hasError('pattern')">
+                Please enter maximum 10 digits
+            </mat-error>
+            <mat-error *ngIf="contactForm.controls['phone'].hasError('required')">
+                Phone Number is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+    </form>
+
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button cdkFocusInitial [disabled]="contactForm.invalid"
+        [mat-dialog-close]='contactForm.value'>Ok</button>
+</div>

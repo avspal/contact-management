@@ -1,0 +1,17 @@
+<h5>Contacts</h5>
+<button mat-button name="add" (click)="addContact()">Add Contact</button>
+<div class="contact-cards">
+    <mat-card class="contact-card" *ngFor="let contact of contacts; let i=index">
+        <mat-card-header>
+            <mat-card-title>{{contact.firstName + ' ' + contact.lastName}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <span>Email: {{contact.email}}</span> <br>
+            <span>Phone: {{contact.phone}}</span> <br>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button name="edit" class="edit" (click)="editContact(i, contact)">Edit</button>
+            <button mat-button (click)="deleteContact(i)">Delete</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
