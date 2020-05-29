@@ -1,3 +1,4 @@
+import { Contact } from './../contact.model';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
@@ -9,6 +10,7 @@ import { ContactListComponent } from './contact-list.component';
 import { ContactService } from './../contact.service';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { platform } from 'os';
 
 export class MatDialogMock {
   // When the component calls this.dialog.open(...) we'll return an object
@@ -60,20 +62,14 @@ describe('ContactListComponent', () => {
     expect(component.contacts.length).toBeGreaterThan(0);
   });
 
-  it('should call onAddContact, open Dialog & call cotactServiceMock.addContacts when Add button is clicked', fakeAsync(() => {
-    spyOn(dialog, 'open').and.callThrough();
+  it('should call cotactServiceMock.addContacts when addContact function is called', fakeAsync(() => {
     spyOn(cotactServiceMock, 'addContacts').and.callThrough();
-
-    const editButton = debugElement.query(By.css('button[name=add]'));
-    console.log(debugElement.query(By.css('button[name=add]')));
-    editButton.triggerEventHandler('click', null);
-
-    expect(dialog.open).toHaveBeenCalled();
+    component.addContact()
     expect(cotactServiceMock.addContacts).toHaveBeenCalledWith(jasmine.any(Object));
     }
   ));
 
-  it('should call cotactServiceMock.deleteContact when deleteContact method is called', fakeAsync(() => {
+  it('should call cotactServiceMock.deleteContact when deleteContact function is called', fakeAsync(() => {
     spyOn(cotactServiceMock, 'deleteContact').and.callThrough();
     component.deleteContact(0);
     expect(cotactServiceMock.deleteContact).toHaveBeenCalledWith(0);

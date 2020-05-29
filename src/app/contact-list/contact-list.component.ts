@@ -1,6 +1,6 @@
 import { ContactService } from './../contact.service';
 import { Contact } from './../contact.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactComponent } from '../contact/contact.component';
 import { Subscription } from 'rxjs';
@@ -25,13 +25,18 @@ export class ContactListComponent implements OnInit {
     });
   }
 
+  /**
+   * Edit existing contact details
+   * @param {number} index position of contact in list
+   * @param {Contact} contact Contact details to be edited
+   * @returns
+   */
   editContact(index: number, contact: Contact) {
     const dialogRef = this.dialog.open(ContactComponent, {
       data: contact,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
       if(result) {
         if(!isNaN(index)) {
           result['isActive']  = contact.isActive;
@@ -41,13 +46,17 @@ export class ContactListComponent implements OnInit {
     });
   }
 
+
+  /**
+   * Add new contact details
+   * @returns
+   */
   addContact() {
     const dialogRef = this.dialog.open(ContactComponent, {
       data: {},
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
       if(result) {
         result['isActive']  = true;
         this.contactServie.addContacts(result);
@@ -55,6 +64,11 @@ export class ContactListComponent implements OnInit {
     });
   }
   
+  /**
+   * delete one contact from contact list
+   * @param {number} index position of contact in list
+   * @return
+   */
   deleteContact(index: number) {
     this.contactServie.deleteContact(index);
   }

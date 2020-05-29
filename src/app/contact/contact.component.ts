@@ -24,6 +24,10 @@ export class ContactComponent implements OnInit {
     }
   }
 
+  /**
+   * Initilizes contactForm FormGroup with FormControls
+   * @returns
+   */
   createForm() {
     this.contactForm = new FormGroup({
       firstName: new FormControl('',[Validators.required]),
@@ -36,6 +40,10 @@ export class ContactComponent implements OnInit {
     });
   }
 
+  /**
+   * Closes dialog
+   * @returns
+   */
   onCancel() {
     this.dialogRef.close();
   }
